@@ -4,11 +4,10 @@ import com.cydeo.dto.UserDTO;
 import com.cydeo.entity.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
-    List<User> listAllUsers();
+    List<UserDTO> listAllUsers();
 
     UserDTO findByUserName(String userName);
 
