@@ -1,7 +1,6 @@
 package com.cydeo.service.impl;
 
 import com.cydeo.dto.TaskDTO;
-import com.cydeo.entity.Project;
 import com.cydeo.entity.Task;
 import com.cydeo.enums.Status;
 import com.cydeo.mapper.TaskMapper;
@@ -66,5 +65,15 @@ public class TaskServiceImpl implements TaskService {
             foundTask.get().setIsDeleted(true);
             taskRepository.save(foundTask.get());
         }
+    }
+
+    @Override
+    public int totalNonCompletedTask(String projectCode) {
+        return taskRepository.totalNonCompletedTasks(projectCode);
+    }
+
+    @Override
+    public int totalCompletedTask(String projectCode) {
+        return taskRepository.totalCompletedTasks(projectCode);
     }
 }
