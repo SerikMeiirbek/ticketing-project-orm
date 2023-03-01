@@ -1,10 +1,8 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.ProjectDTO;
-import com.cydeo.dto.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,7 +11,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
-//
+
 //    ProjectService projectService;
 //    UserService userService;
 //
