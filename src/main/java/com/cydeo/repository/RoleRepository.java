@@ -1,14 +1,9 @@
 package com.cydeo.repository;
 
-import com.cydeo.entity.User;
+import com.cydeo.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    User findByUserName(String userName);
-
-
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
