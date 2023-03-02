@@ -3,9 +3,7 @@ package com.cydeo.entity;
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Status;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -16,20 +14,27 @@ import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
-
-@Data
+@Setter
+@Getter
 @Table(name = "tasks")
 @Where(clause = "is_deleted=false")
 public class Task extends BaseEntity{
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "role_id")
-//    private Project project;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "assigned_user")
-//    private User assignedEmployee;
-//    private String taskSubject;
-//    private String taskDetail;
-//    private Status taskStatus;
-//    private LocalDate assignedDate;
+
+    private String taskSubject;
+    private String taskDetail;
+
+    @Enumerated(EnumType.STRING)
+    private Status taskStatus;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate assignedDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_employee_id")
+    private User assignedEmployee;
 
 }
