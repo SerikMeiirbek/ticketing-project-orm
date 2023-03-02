@@ -2,6 +2,9 @@ package com.cydeo.controller;
 
 import com.cydeo.dto.TaskDTO;
 import com.cydeo.enums.Status;
+import com.cydeo.service.ProjectService;
+import com.cydeo.service.TaskService;
+import com.cydeo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +15,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/task")
 public class TaskController {
-//
+
 //    private final TaskService taskService;
 //    private final ProjectService projectService;
 //    private final UserService userService;
@@ -27,9 +30,9 @@ public class TaskController {
 //    public String createTask(Model model) {
 //
 //        model.addAttribute("task", new TaskDTO());
-//        model.addAttribute("projects", projectService.findAll());
+//        model.addAttribute("projects", projectService.listAllProjects());
 //        model.addAttribute("employees", userService.findEmployees());
-//        model.addAttribute("tasks", taskService.findAll());
+//        model.addAttribute("tasks", taskService.listAllTasks());
 //
 //        return "task/create";
 //    }

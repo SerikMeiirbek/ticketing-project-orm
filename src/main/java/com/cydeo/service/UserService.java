@@ -10,4 +10,6 @@ public interface UserService {
     void save(UserDTO userDTO);
     UserDTO update(UserDTO userDTO);
     void deleteByUserName(String userName);
+    void delete(String userName);
+    List<UserDTO> listAllByRole(String role);
 }

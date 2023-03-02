@@ -12,6 +12,8 @@ import javax.validation.constraints.*;
 @ToString
 public class UserDTO {
 
+    private Long id;
+
     @NotBlank
     @Size(max = 15, min = 2)
     private String firstName;
@@ -25,7 +27,7 @@ public class UserDTO {
     private String userName;
 
     @NotBlank
-    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,}")
+//    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,}")
     private String passWord;
 
     @NotNull
@@ -125,4 +127,11 @@ public class UserDTO {
         this.gender = gender;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
