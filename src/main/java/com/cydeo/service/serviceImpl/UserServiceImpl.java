@@ -1,10 +1,15 @@
 package com.cydeo.service.serviceImpl;
 
+import com.cydeo.dto.ProjectDTO;
+import com.cydeo.dto.TaskDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.entity.User;
 import com.cydeo.mapper.UserMapper;
 import com.cydeo.repository.UserRepository;
+import com.cydeo.service.ProjectService;
+import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +21,14 @@ public class  UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ProjectService projectService;
+    private final TaskService taskService;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, @Lazy ProjectService projectService, TaskService taskService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -55,16 +64,32 @@ public class  UserServiceImpl implements UserService {
 
     @Override
     public void deleteByUserName(String userName) {
-
-        userRepository.findByUserName(userName).setIsDeleted(true);
         userRepository.deleteByUserName(userName);
     }
 
     @Override
     public void delete(String userName) {
         User user = userRepository.findByUserName(userName);
-        user.setIsDeleted(true);
-        userRepository.save(user);
+
+        if(checkIfUserCanBeDeleted(user)){
+            user.setIsDeleted(true);
+            user.setUserName(user.getUserName() + "-" + user.getId());
+            userRepository.save(user);
+        }
+
+    }
+
+    private boolean checkIfUserCanBeDeleted(User user){
+        switch(user.getRole().getDescription()){
+            case "Manager" :
+                List<ProjectDTO> projectDTOList = projectService.readAllByAssignedManager(user);
+                return  projectDTOList.size() == 0 ? true : false;
+            case "Employee":
+                List<TaskDTO> taskDTOList = taskService.readAllByAssignedEmployee(user);
+                return  taskDTOList.size() == 0 ? true : false;
+            default:
+                return true;
+        }
     }
 
     @Override
@@ -74,5 +99,6 @@ public class  UserServiceImpl implements UserService {
         return  userDtoList;
 
     }
+
 
 }

@@ -3,6 +3,7 @@ package com.cydeo.service;
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.RoleDTO;
 import com.cydeo.entity.Project;
+import com.cydeo.entity.User;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface ProjectService {
     void delete(String code);
     void complete(String projectCode);
     List<ProjectDTO> listAllProjectsByManager();
+
+    List<ProjectDTO> readAllByAssignedManager(User assignedManager);
 }

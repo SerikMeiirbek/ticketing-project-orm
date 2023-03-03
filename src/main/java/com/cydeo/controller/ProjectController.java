@@ -4,6 +4,7 @@ import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +28,7 @@ public class ProjectController {
     public String createProject(Model model) {
 
         model.addAttribute("project", new ProjectDTO());
-        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("projects", projectService.listAllProjectsByManager());
         model.addAttribute("managers", userService.listAllByRole("Manager"));
 
         return "/project/create";
@@ -39,7 +40,7 @@ public class ProjectController {
 
         if (bindingResult.hasErrors()) {
 
-            model.addAttribute("projects", projectService.listAllProjects());
+            model.addAttribute("projects", projectService.listAllProjectsByManager());
             model.addAttribute("managers", userService.listAllByRole("Manager"));
 
             return "/project/create";
